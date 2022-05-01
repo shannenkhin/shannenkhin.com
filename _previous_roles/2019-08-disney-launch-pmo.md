@@ -4,6 +4,7 @@ name: "The Walt Disney Company"
 location: "London, UK"
 date_range: "Aug 2019 - Jan 2022"
 logo: "/assets/images/cv/logos/logo-disney.svg"
+logo_is_wide: true
 ---
 Launched Disney+ globally with results of more than 95 million subscribers and growing.
 * Led successful Disney+ launches in 67 countries worldwide.

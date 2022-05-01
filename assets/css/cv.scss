@@ -22,13 +22,22 @@ div.container {
                 div.cv-experience-details {
                     div.cv-experience-logo {
                         img {
-                            filter: 'saturate(100%)';
                             max-width: 50px;
                             max-height: 30px;
                         }
                         img.logo-wide {
                             max-width: 60px;
                             max-height: 50px;
+                        }
+                        @media (max-width: 449px) {
+                            img {
+                                max-width: 75px;
+                                max-height: 45px;
+                            }
+                            img.logo-wide {
+                                max-width: 90px;
+                                max-height: 67px;
+                            }
                         }
                         width: 60px;
                         height: 60px;
