@@ -22,17 +22,22 @@
         <meta name="theme-color" content="#ffffff">
         <meta name="twitter:card" content="summary">
         <meta name="twitter:description" content="{{ page.description }}">
-        <meta name="twitter:image" content="{{ site.site_base_url }}/assets/images/favicon/android-chrome-512x512.png">
+        <meta name="twitter:image" content="{{ site.url }}/assets/images/favicon/android-chrome-512x512.png">
         <meta name="twitter:image:alt" content="{{ site.site_image_name }}">
         <meta name="twitter:title" content="{{ page.title }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta property="og:description" content="{{ page.description }}">
-        <meta property="og:image" content="{{ site.site_base_url }}/assets/images/favicon/android-chrome-512x512.png">
+        <meta property="og:image" content="{{ site.url }}/assets/images/favicon/android-chrome-512x512.png">
         <meta property="og:locale" content="{{ site.site_locale }}">
         <meta property="og:site_name" content="{{ site.site_name }}">
         <meta property="og:title" content="{{ page.title }}">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="{{ site.site_base_url }}/">
+        <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+        {% if page.schema %}
+        <script type="application/ld+json">
+            {{ page.schema | jsonify }}
+        </script>
+        {% endif %}
     </head>
     <body>
         <div class="container">
