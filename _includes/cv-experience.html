@@ -1,0 +1,27 @@
+<div class="cv-experience">
+    <div class="cv-experience-details">
+        <div class="cv-experience-logo">
+            <img src="{{ experience.logo }}" alt="{{ experience.name }} logo"{% if experience.logo_is_wide %} class="logo-wide"{% endif %}>
+        </div>
+        <div class="cv-experience-metadata">
+            <h3>{{ experience.title }}</h3>
+            {% if experience.name_location_markdown_override %}
+            {{ experience.name_location_markdown_override | markdownify }}
+            {% else %}
+            <p class="cv-experience-location"><strong>{{ experience.name }}</strong>{% if experience.location %} in <strong>{{ experience.location }}</strong>{% endif %}</p>
+            {% endif %}
+            {% if experience.date_range %}
+            <p class="cv-experience-date-range">{{ experience.date_range }}</p>
+            {% endif %}
+            {% if experience.extra_markdown %}
+            {{ experience.extra_markdown | markdownify }}
+            {% endif %}
+        </div>
+    </div>
+    {% assign experience_content_length = experience.content.size %}
+    {% if experience_content_length > 1 %}
+    <div class="cv-experience-description">
+        {{ experience.content }}
+    </div>
+    {% endif %}
+</div>

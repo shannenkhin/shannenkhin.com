@@ -1,0 +1,88 @@
+---
+---
+
+@import 'vars';
+@import 'fonts';
+
+div.container {
+    main {
+        p.lead {
+            font-size: 12.6pt;
+            padding-bottom: 5px;
+        }
+        div.cv-section {
+            h2 {
+                color: $colour-accent;
+                font-size: 18pt;
+                font-family: $font-serif;
+                text-transform: lowercase;
+                margin-bottom: 0;
+            }
+            div.cv-experience {
+                div.cv-experience-details {
+                    div.cv-experience-logo {
+                        img {
+                            filter: 'saturate(100%)';
+                            max-width: 50px;
+                            max-height: 30px;
+                        }
+                        img.logo-wide {
+                            max-width: 60px;
+                            max-height: 50px;
+                        }
+                        width: 60px;
+                        height: 60px;
+                        display : flex;
+                        align-items : center;
+                        justify-content: center;
+                    }
+                    div.cv-experience-metadata {
+                        * {
+                            color: $colour-grayscale-4;
+                            margin-bottom: 0;
+                        }
+                        h3 {
+                            font-size: 13pt;
+                            font-weight: bold;
+                        }
+                        p.cv-experience-date-range {
+                            font-style: italic;
+                        }
+                        flex-grow: 1;
+                        min-width: 350px;
+                    }
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    align-content: flex-start;
+                    column-gap: 10px;
+                }
+                div.cv-experience-description {
+                    * {
+                        margin-bottom: 0;
+                    }
+                }
+                width: 100%;
+                border-top: 1px solid $colour-grayscale-1;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                justify-content: left;
+                align-items: flex-start;
+                align-content: flex-start;
+                row-gap: 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: left;
+            align-items: flex-start;
+            align-content: flex-start;
+            row-gap: 5px;
+        }
+    }
+}
