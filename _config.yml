@@ -1,6 +1,7 @@
 
+url: 'https://shannenkhin.com'
+
 site_locale: 'en_GB'
-site_base_url: 'https://shannenkhin.com'
 site_name: 'Shannen Khin'
 site_author: 'Shannen Khin'
 site_image_name: "Shannen Khin's photo"
@@ -27,3 +28,10 @@ collections:
   - 'current_role'
   - 'education'
   - 'volunteering'
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "global"
