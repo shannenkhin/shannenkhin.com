@@ -4,6 +4,7 @@ name: "The Walt Disney Company"
 location: "London, UK"
 date_range: "Aug 2016 - Apr 2019"
 logo: "/assets/images/cv/logos/logo-disney.svg"
+logo_is_wide: true
 ---
 Working in an agile development team as a product owner, managing the product roadmap for DisneyLife on all supported platforms.
 * Successfully delivered complex DisneyLife migration to Disney+ due to content licensing, compliance and contracts.
