@@ -1,0 +1,29 @@
+
+site_locale: 'en_GB'
+site_base_url: 'https://shannenkhin.com'
+site_name: 'Shannen Khin'
+site_author: 'Shannen Khin'
+site_image_name: "Shannen Khin's photo"
+
+header_firstname: 'Shannen'
+header_lastname: 'Khin'
+header_job_title: 'Campaign Planning Manager'
+header_location: 'London, UK'
+
+menu:
+  -
+    icon: 'download'
+    text: 'Download'
+    link: '/assets/docs/shannen-khin-cv.pdf'
+    icon_alt: 'Download icon'
+  -
+    icon: 'linkedin'
+    text: 'Contact me'
+    link: 'https://www.linkedin.com/in/shannenkhin/'
+    icon_alt: 'LinkedIn icon'
+
+collections:
+  - 'previous_roles'
+  - 'current_role'
+  - 'education'
+  - 'volunteering'

@@ -1,0 +1,41 @@
+---
+layout: "global"
+title: "Shannen Khin - Campaign Planning Manager - London"
+description: "I am passionate about products that affect millions of people every day. I work cross-functionally in matrix organisations to guide teams from concept to launch by connecting the technical and business worlds to provide a best-in-class customer experience."
+stylesheets:
+- "/assets/css/cv.css"
+show_menu: true
+---
+<p class="lead">{{ page.description }}</p>
+{% if site.current_role %}
+<div class="cv-section">
+    <h2>Current role</h2>
+    {% for experience in site.current_role reversed %}
+    {% include cv-experience.html %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if site.previous_roles %}
+<div class="cv-section">
+    <h2>Previous roles</h2>
+    {% for experience in site.previous_roles reversed %}
+    {% include cv-experience.html %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if site.education %}
+<div class="cv-section">
+    <h2>Education</h2>
+    {% for experience in site.education reversed %}
+    {% include cv-experience.html %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if site.volunteering %}
+<div class="cv-section">
+    <h2>Volunteering</h2>
+    {% for experience in site.volunteering reversed %}
+    {% include cv-experience.html %}
+    {% endfor %}
+</div>
+{% endif %}
