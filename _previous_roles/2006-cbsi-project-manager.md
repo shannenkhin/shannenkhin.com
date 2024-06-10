@@ -2,7 +2,7 @@
 title: "Product Marketing Manager, APAC"
 name: "CBS Interactive"
 location: "Singapore"
-date_range: "2006 - 2013"
+date_range: "Aug 2006 - Dec 2013 (7yrs 5mos)"
 logo: "/assets/images/cv/logos/logo-cbsinteractive.svg"
 ---
 * Delivered go-to-market strategies including pricing, communication plans and success case studies to support new product launches.
