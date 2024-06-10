@@ -2,7 +2,7 @@
 title: "Quality Assurance Engineer"
 name: "e-Cop (Certis Group)"
 location: "Singapore"
-date_range: "2003 - 2006"
+date_range: "May 2003 - Sep 2006 (3yrs 5mos)"
 logo: "/assets/images/cv/logos/logo-ecop.svg"
 logo_is_wide: true
 ---

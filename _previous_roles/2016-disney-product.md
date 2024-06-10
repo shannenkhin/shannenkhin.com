@@ -2,7 +2,7 @@
 title: "Product Manager, DTCI"
 name: "The Walt Disney Company"
 location: "London, UK"
-date_range: "2016 - 2019"
+date_range: "Aug 2016 - Apr 2019 (2yrs 9mos)"
 logo: "/assets/images/cv/logos/logo-disney.svg"
 logo_is_wide: true
 ---

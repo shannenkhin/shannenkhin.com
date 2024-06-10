@@ -2,7 +2,7 @@
 title: "Marketing Strategy Manager, DTC EMEA"
 name: "The Walt Disney Company"
 location: "London, UK"
-date_range: "2022 - Now"
+date_range: "Jan 2022 - May 2024 (2yrs 5mos)"
 logo: "/assets/images/cv/logos/logo-disney.svg"
 logo_is_wide: true
 ---
