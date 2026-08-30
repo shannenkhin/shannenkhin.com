@@ -2,7 +2,7 @@
 title: "Program Manager, Launch PMO, DMED"
 name: "The Walt Disney Company"
 location: "London, UK"
-date_range: "Apr 2019 - Dec 2022 (2yrs 9mos)"
+date_range: "Apr 2019 - Dec 2021 (2yrs 9mos)"
 logo: "/assets/images/cv/logos/logo-disney.svg"
 logo_is_wide: true
 ---
