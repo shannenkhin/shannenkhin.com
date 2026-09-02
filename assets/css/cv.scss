@@ -2,102 +2,146 @@
 ---
 
 @import 'vars';
-@import 'fonts';
 
-div.container {
-    main {
-        p.lead {
-            font-size: 12.6pt;
-            padding-bottom: 5px;
-            font-weight: bold;
-            color: $colour-accent;
-        }
-        p.blurb {
-            font-size: 12.6pt;
-            line-height: 1.3;
-        }
-        div.cv-section {
-            h2 {
-                color: $colour-accent;
-                font-size: 18pt;
-                font-family: $font-serif;
-                margin-bottom: 0;
-            }
-            div.cv-experience {
-                div.cv-experience-details {
-                    div.cv-experience-logo {
-                        img {
-                            max-width: 50px;
-                            max-height: 30px;
-                        }
-                        img.logo-wide {
-                            max-width: 60px;
-                            max-height: 50px;
-                        }
-                        @media (max-width: 449px) {
-                            img {
-                                max-width: 75px;
-                                max-height: 45px;
-                            }
-                            img.logo-wide {
-                                max-width: 90px;
-                                max-height: 67px;
-                            }
-                        }
-                        width: 60px;
-                        height: 60px;
-                        display : flex;
-                        align-items : center;
-                        justify-content: center;
-                    }
-                    div.cv-experience-metadata {
-                        * {
-                            color: $colour-grayscale-4;
-                            margin-bottom: 0;
-                        }
-                        h3 {
-                            font-size: 13pt;
-                            font-weight: bold;
-                        }
-                        p.cv-experience-date-range {
-                            font-style: italic;
-                        }
-                        flex-grow: 1;
-                        min-width: 350px;
-                    }
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    align-items: center;
-                    align-content: flex-start;
-                    column-gap: 10px;
-                }
-                div.cv-experience-description {
-                    * {
-                        line-height: 1.7;
-                        margin-bottom: 0;
-                    }
-                }
-                width: 100%;
-                border-top: 1px solid $colour-grayscale-1;
-                display: flex;
-                flex-direction: column;
-                flex-wrap: wrap;
-                justify-content: left;
-                align-items: flex-start;
-                align-content: flex-start;
-                row-gap: 10px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: left;
-            align-items: flex-start;
-            align-content: flex-start;
-            row-gap: 5px;
-        }
+// `@import 'fonts'` used to be here as well as in global.scss. Both stylesheets
+// load on this page, so every @font-face block was declared twice — the same
+// eight faces, parsed twice, in two files that both had to be downloaded.
+// global.css is loaded first and unconditionally, so the faces belong there.
+
+// A4 rather than the browser's default paper, with the page number in the
+// bottom margin. bin/generate-cv-pdf.mjs prints this page with
+// `preferCSSPageSize`, so this is the size the downloadable PDF comes out at.
+@page {
+    size: a4 portrait;
+    margin: 1cm;
+
+    @bottom-right {
+        content: "page " counter(page) " of " counter(pages);
+        color: $colour-muted;
+        font-family: $font-sans-serif;
+        font-size: 0.6rem;
+        text-align: right;
+    }
+}
+
+// Selectors here are flat: one class each, because each class already appears
+// exactly once in the markup. They used to be nested to mirror the DOM, which
+// compiled to things like `div.container main div.cv-section div.cv-experience
+// div.cv-experience-details div.cv-experience-metadata h3` — seven levels
+// describing a structure the class name on its own already identified.
+
+.lead {
+    color: $colour-accent;
+    font-size: 1.167rem;
+    font-weight: bold;
+    padding-bottom: 0.35rem;
+}
+
+.blurb {
+    font-size: 1.167rem;
+    line-height: 1.3;
+}
+
+.cv-section {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: column wrap;
+    place-content: flex-start left;
+    row-gap: 0.35rem;
+}
+
+.cv-section h2 {
+    color: $colour-accent;
+    font-family: $font-serif;
+    font-size: 1.667rem;
+    margin-bottom: 0;
+}
+
+.cv-experience {
+    align-items: flex-start;
+    border-top: 1px solid $colour-hairline;
+    display: flex;
+    flex-flow: column wrap;
+    place-content: flex-start left;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    row-gap: 0.7rem;
+    width: 100%;
+}
+
+.cv-experience-details {
+    align-items: center;
+    column-gap: 0.7rem;
+    display: flex;
+    flex-flow: row wrap;
+    place-content: flex-start center;
+    width: 100%;
+}
+
+.cv-experience-logo {
+    align-items: center;
+    display: flex;
+    height: 4.15rem;
+    justify-content: center;
+    width: 4.15rem;
+}
+
+.cv-experience-logo img {
+    max-height: 2.1rem;
+    max-width: 3.5rem;
+    // The logos are brand marks drawn for a white background, and several are
+    // dark navy or near-black — invisible on the dark theme's ground. Render
+    // them as soft-white silhouettes there; the token is a no-op on light. The
+    // company name sits beside each one, so nothing is lost by dropping the
+    // brand colour.
+    filter: var(--c-logo-filter);
+}
+
+.cv-experience-logo img.logo-wide {
+    max-height: 3.5rem;
+    max-width: 4.15rem;
+}
+
+.cv-experience-metadata {
+    // `min-width: 350px` here was giving the page a horizontal scrollbar on any
+    // viewport narrower than about 370px: with the container's 15px gutters it
+    // forced a 365px document, so a 360px phone — the most common Android width
+    // there is — scrolled sideways. A flex basis is the same layout intent (aim
+    // for 350px on a row beside the logo) without the rigid floor, and
+    // `min-width: 0` lets the flex item shrink below its content's width.
+    flex: 1 1 22rem;
+    min-width: 0;
+}
+
+.cv-experience-metadata * {
+    color: $colour-fg-strong;
+    margin-bottom: 0;
+}
+
+.cv-experience-metadata h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.cv-experience-metadata .cv-experience-date-range {
+    font-style: italic;
+}
+
+.cv-experience-description * {
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+@media (max-width: 449px) {
+    // Stacked on its own row at this width, so let the logo grow beyond the
+    // narrow column it sits in beside the metadata on wider screens.
+    .cv-experience-logo img {
+        max-height: 3.15rem;
+        max-width: 5.2rem;
+    }
+
+    .cv-experience-logo img.logo-wide {
+        max-height: 4.65rem;
+        max-width: 6.25rem;
     }
 }

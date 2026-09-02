@@ -6,24 +6,59 @@ site_name: 'Shannen Khin'
 site_author: 'Shannen Khin'
 site_image_name: "Shannen Khin's photo"
 
+# The <html lang>. `en` was close enough to be wrong: the prose, the spellings
+# and og:locale are all British, and a screen reader picks its pronunciation
+# from this.
+site_lang: 'en-GB'
+
+# The card unfurled by LinkedIn, Slack, WhatsApp and the rest. Regenerate with
+# `npm run og:image` after a build. The dimensions here must match what
+# bin/generate-og-image.mjs renders, because the scrapers lay the card out from
+# the og:image:width/height tags before the image itself has downloaded.
+site_og_image: '/assets/images/og-card.png'
+site_og_image_alt: 'Shannen Khin, Snr Program Manager, London, UK'
+site_og_image_width: 1200
+site_og_image_height: 630
+
 header_firstname: 'Shannen'
 header_lastname: 'Khin'
 header_location: 'London, UK'
 
+# The current job title, in one place. It is rendered into the header, the
+# <title>, and the Person schema's jobTitle — all three of which used to say
+# "Marketing Strategy Manager", the Disney role that ended in May 2024, while
+# the page below them listed the LEGO one. Whoever updates the role should
+# update this line with it.
+header_job_title: 'Snr Program Manager'
+
+# Where the Person schema's sameAs points, and the header's contact link. One
+# value, because a profile URL that appears twice eventually appears twice
+# differently.
+linkedin_url: 'https://www.linkedin.com/in/shannenkhin/'
+
 menu:
-#  -
-#    icon: 'download'
-#    text: 'Download'
-#    link: '/assets/docs/shannen-khin-cv.pdf'
-#    icon_alt: 'Download icon'
+  -
+    icon: 'download'
+    text: 'Download CV'
+    link: '/assets/docs/shannen-khin-cv.pdf'
   -
     icon: 'linkedin'
     text: 'Contact me'
     link: 'https://www.linkedin.com/in/shannenkhin/'
-    icon_alt: 'LinkedIn icon'
 
 collections:
   - 'previous_roles'
   - 'current_role'
   - 'education'
   - 'volunteering'
+
+# Fail the build on a Liquid syntax error rather than rendering it silently, so
+# a broken template is a build failure instead of a page with a hole in it.
+liquid:
+  error_mode: strict
+
+exclude:
+  - 'bin'
+  - 'node_modules'
+  - 'package.json'
+  - 'package-lock.json'

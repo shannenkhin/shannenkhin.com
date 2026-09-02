@@ -1,27 +1,33 @@
 <div class="cv-experience">
     <div class="cv-experience-details">
         <div class="cv-experience-logo">
-            <img src="{{ experience.logo }}" alt="{{ experience.name }} logo"{% if experience.logo_is_wide %} class="logo-wide"{% endif %}>
+            {%- comment -%}
+            The logo is decorative: the organisation's name is printed as text
+            immediately beside it, so an alt of "The Walt Disney Company logo"
+            had a screen reader announce the same employer twice for every one
+            of the seven rows on the page.
+            {%- endcomment -%}
+            <img src="{{ experience.logo }}" alt=""{% if experience.logo_is_wide %} class="logo-wide"{% endif %}>
         </div>
         <div class="cv-experience-metadata">
             <h3>{{ experience.title }}</h3>
-            {% if experience.name_location_markdown_override %}
+            {%- if experience.name_location_markdown_override %}
             {{ experience.name_location_markdown_override | markdownify }}
-            {% else %}
+            {%- else %}
             <p class="cv-experience-location"><strong>{{ experience.name }}</strong>{% if experience.location %} in <strong>{{ experience.location }}</strong>{% endif %}</p>
-            {% endif %}
-            {% if experience.date_range %}
-            <p class="cv-experience-date-range">{{ experience.date_range }}</p>
-            {% endif %}
-            {% if experience.extra_markdown %}
+            {%- endif %}
+            {%- if experience.start %}
+            <p class="cv-experience-date-range">{% include cv-date-range.html start=experience.start end=experience.end %}</p>
+            {%- endif %}
+            {%- if experience.extra_markdown %}
             {{ experience.extra_markdown | markdownify }}
-            {% endif %}
+            {%- endif %}
         </div>
     </div>
-    {% assign experience_content_length = experience.content.size %}
-    {% if experience_content_length > 1 %}
+    {%- assign experience_content_length = experience.content.size %}
+    {%- if experience_content_length > 1 %}
     <div class="cv-experience-description">
         {{ experience.content }}
     </div>
-    {% endif %}
+    {%- endif %}
 </div>

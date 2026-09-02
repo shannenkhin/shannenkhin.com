@@ -1,63 +1,96 @@
 <!doctype html>
-    <html lang="en">
+<html lang="{{ site.site_lang }}">
     <head>
         <meta charset="utf-8">
-        <title>{{ page.title }}</title>
+        {%- comment -%}
+        The homepage's title is composed from the same config keys the header
+        renders, so the job title in it cannot go stale on its own. A page that
+        sets its own `title` (404) keeps it. Captured once and reused by the
+        og: and twitter: tags below, which otherwise each need the same
+        conditional and would drift apart the first time one was edited.
+        {%- endcomment -%}
+        {%- capture page_title -%}
+            {%- if page.title -%}{{ page.title }}{%- else -%}{{ site.site_name }} - {{ site.header_job_title }} - {{ site.header_location | split: "," | first }}{%- endif -%}
+        {%- endcapture -%}
+        <title>{{ page_title }}</title>
+        <link rel="canonical" href="{{ site.url }}{{ page.url }}">
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
         <link rel="manifest" href="/site.webmanifest">
         <link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+        <!-- The two faces used above the fold: the body text and the bold nav
+             beside it. They are referenced from inside global.css, so without
+             these the browser cannot even ask for them until the stylesheet has
+             downloaded and parsed. `crossorigin` is required on a font preload
+             even same-origin — fonts are fetched in CORS mode, and a preload
+             that does not match the later fetch is discarded and fetched again.
+             The serif is not preloaded: it is Georgia, already on the machine. -->
+        <link rel="preload" href="/assets/fonts/poppins.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="stylesheet" href="/assets/css/global.css">
-        {% for stylesheet in layout.stylesheets %}
+        {%- for stylesheet in layout.stylesheets %}
         <link rel="stylesheet" href="{{ stylesheet }}">
-        {% endfor %}
-        {% for stylesheet in page.stylesheets %}
+        {%- endfor %}
+        {%- for stylesheet in page.stylesheets %}
         <link rel="stylesheet" href="{{ stylesheet }}">
-        {% endfor %}
+        {%- endfor %}
         <meta name="author" content="{{ site.site_author }}">
         <meta name="description" content="{{ page.description }}">
         <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="theme-color" content="#ffffff">
-        <meta name="twitter:card" content="summary">
+        <!-- One per scheme, so the browser chrome matches the page rather than
+             staying white behind a dark one. -->
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)">
+        <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:description" content="{{ page.description }}">
-        <meta name="twitter:image" content="{{ site.url }}/assets/images/favicon/android-chrome-512x512.png">
-        <meta name="twitter:image:alt" content="{{ site.site_image_name }}">
-        <meta name="twitter:title" content="{{ page.title }}">
+        <meta name="twitter:image" content="{{ site.url }}{{ site.site_og_image }}">
+        <meta name="twitter:image:alt" content="{{ site.site_og_image_alt }}">
+        <meta name="twitter:title" content="{{ page_title }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta property="og:description" content="{{ page.description }}">
-        <meta property="og:image" content="{{ site.url }}/assets/images/favicon/android-chrome-512x512.png">
+        <meta property="og:image" content="{{ site.url }}{{ site.site_og_image }}">
+        <meta property="og:image:alt" content="{{ site.site_og_image_alt }}">
+        <meta property="og:image:width" content="{{ site.site_og_image_width }}">
+        <meta property="og:image:height" content="{{ site.site_og_image_height }}">
         <meta property="og:locale" content="{{ site.site_locale }}">
         <meta property="og:site_name" content="{{ site.site_name }}">
-        <meta property="og:title" content="{{ page.title }}">
+        <meta property="og:title" content="{{ page_title }}">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-        {% if page.schema %}
+        {%- if page.schema_person %}
         <script type="application/ld+json">
-            {{ page.schema | jsonify }}
+            {%- include schema-person.html %}
         </script>
-        {% endif %}
+        {%- endif %}
     </head>
     <body>
         <div class="container">
             <header>
                 <div class="header-avatar">
                     <div class="header-avatar-border">
-                        <a href="/"><img src="/assets/images/avatar.svg" alt="{{ site.site_image_name }}"></a>
+                        <!-- Not a link. It used to be a second anchor to "/"
+                             sitting immediately before the name, which is also
+                             an anchor to "/": two adjacent links to the page you
+                             are already on, and a keyboard tab stop that did
+                             nothing. -->
+                        <img src="/assets/images/avatar.svg" alt="{{ site.site_image_name }}">
                     </div>
                 </div>
                 <div class="header-data">
-                    <h1 class="mt-2"><a href="/">{{ site.header_firstname }}&nbsp;<span class="alternate">{{ site.header_lastname }}</span></a></h1>
+                    <h1><a href="/">{{ site.header_firstname }}&nbsp;<span class="alternate">{{ site.header_lastname }}</span></a></h1>
+                    <p><strong>{{ site.header_job_title }}</strong></p>
                     <p>{{ site.header_location }}</p>
-                    {% if page.show_menu %}
+                    {%- if page.show_menu %}
                     <nav>
-                        {% for nav in site.menu %}
-                        {% if site.menu.first != nav %}&nbsp;&nbsp;&nbsp;{% endif %}
-                        <a href="{{ nav.link }}"><img src="/assets/images/icons/icon-{{ nav.icon }}.svg" alt="{{ nav.icon_alt }}" class="header-data-links-icon"> {{ nav.text }}</a>
-                        {% endfor %}
+                        {%- for nav in site.menu %}
+                        <!-- The icon is decorative: the link's own text says the
+                             same thing right beside it, so an alt here would
+                             have a screen reader announce each link twice. -->
+                        <a href="{{ nav.link }}"{% assign firstchar = nav.link | slice: 0 %}{% if firstchar != '/' %} target="_blank" rel="noopener noreferrer"{% endif %}><img src="/assets/images/icons/icon-{{ nav.icon }}.svg" alt="" class="header-data-links-icon"> {{ nav.text }}</a>
+                        {%- endfor %}
                     </nav>
-                    {% endif %}
+                    {%- endif %}
                 </div>
             </header>
             <main>
@@ -66,3 +99,4 @@
         </div>
     </body>
 </html>
+<!-- last generated: {{ site.time | date: "%F %T %Z" }} -->

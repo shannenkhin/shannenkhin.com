@@ -1,9 +1,28 @@
+// Georgia rather than a self-hosted 'WebGeorgia': it ships with macOS, Windows,
+// iOS and Android, so nearly every reader already has the face the site was
+// designed in, and the ones who do not fall back through a serif stack. The
+// webfont it replaces was 26KB downloaded (371KB in the repository, across
+// three formats and four weights) and could not be served legally anyway.
+$font-serif: Georgia, 'Times New Roman', Times, serif;
 
-$font-serif: 'WebGeorgia', serif;
-$font-sans-serif: 'WebProductSans', sans-serif;
+// Poppins, self-hosted under the OFL. See _sass/fonts.scss for why this is no
+// longer Product Sans.
+$font-sans-serif: 'WebSans', 'Helvetica Neue', Arial, sans-serif;
 
-$colour-accent: #25285B;
-$colour-grayscale-1: #CECECE;
-$colour-grayscale-2: #7F7F7F;
-$colour-grayscale-3: #595959;
-$colour-grayscale-4: #404040;
+// Themeable tokens. Every colour the site draws with resolves to a custom
+// property, so the dark palette is a matter of which values :root gets rather
+// than a second copy of the stylesheet. The light values are the ones the site
+// has always used; the dark ones are chosen to keep each pair's contrast in the
+// same order (see the ratios noted against each).
+$colour-accent: var(--c-accent);
+// Decorative only: the rule between two roles. No contrast floor applies, and
+// darkening it to meet one would pull the eye onto the furniture.
+$colour-hairline: var(--c-hairline);
+// The surname in the header, at 50px. 4.0:1 on white clears the 3:1 that large
+// text has to meet; it would fail if it were ever used at body size.
+$colour-muted: var(--c-muted);
+// Body copy and the job descriptions.
+$colour-fg: var(--c-fg);
+// The metadata beside each logo — company, location, dates — set a step
+// stronger than the body copy it sits above.
+$colour-fg-strong: var(--c-fg-strong);

@@ -1,0 +1,44 @@
+{%- comment -%}
+The Person block search engines and recruiter tooling read.
+
+It used to be a literal `schema:` map in index.html's front matter, which meant
+jobTitle was a hand-typed string — and it still said "Marketing Strategy
+Manager" two years after that role ended, because nothing about editing the
+collections prompts anyone to go and edit a copy of the same fact in the front
+matter. Everything below is derived: the title and the profile URL from
+_config.yml, the employer from the current_role collection, the school from the
+education collection. Add a role, and this follows.
+
+`jsonify` handles the escaping, so a company name with an apostrophe or an
+ampersand in it cannot break the JSON.
+{%- endcomment -%}
+{%- assign employer = site.current_role | first -%}
+{%- assign school = site.education | first -%}
+{
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": {{ site.site_name | jsonify }},
+    "jobTitle": {{ site.header_job_title | jsonify }},
+    "description": {{ page.description | jsonify }},
+    "url": {{ site.url | append: "/" | jsonify }},
+    "image": {{ site.url | append: "/assets/images/avatar.svg" | jsonify }},
+    "sameAs": [{{ site.linkedin_url | jsonify }}],
+    {%- if employer %}
+    "worksFor": {
+        "@type": "Organization",
+        "name": {{ employer.name | jsonify }}
+    },
+    {%- endif %}
+    {%- if school %}
+    "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": {{ school.name | jsonify }}
+    },
+    {%- endif %}
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressRegion": "Greater London",
+        "addressCountry": "GB"
+    }
+}

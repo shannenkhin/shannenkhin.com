@@ -2,7 +2,8 @@
 title: "Program Manager, EMEA"
 name: "IDG Global Solutions"
 location: "London, UK"
-date_range: "Feb 2014 - Aug 2016 (2yrs 7mos)"
+start: "2014-02"
+end: "2016-08"
 logo: "/assets/images/cv/logos/logo-idg.svg"
 logo_is_wide: true
 ---

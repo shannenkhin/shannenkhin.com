@@ -1,0 +1,16 @@
+{
+  "name": "shannenkhin.com",
+  "version": "1.0.0",
+  "description": "The personal CV site of Shannen Khin, built with Jekyll.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "serve:local": "bundle exec jekyll serve",
+    "cv:pdf": "node bin/generate-cv-pdf.mjs",
+    "og:image": "node bin/generate-og-image.mjs"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "playwright": "^1.61.1"
+  }
+}

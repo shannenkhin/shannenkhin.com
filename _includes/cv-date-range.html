@@ -1,0 +1,36 @@
+{%- comment -%}
+Renders a CV date range and its inclusive duration from `start`/`end`, each
+"YYYY-MM". An empty or absent `end` is an ongoing role, rendered as "… – Now"
+with no duration, because a duration that grows every month would be baked into
+the HTML at build time and be wrong by the following one.
+
+This replaces a hand-typed `date_range:` string in every collection file, which
+is why the separator used to be a hyphen in six of them and an en dash in the
+seventh, and why the current role was the only one without a duration. The
+durations the old strings carried are reproduced exactly by the inclusive count
+below — a role running Jan 2022 to May 2024 is 29 months, "2yrs 5mos" — so this
+changes no date on the page, only where they come from.
+{%- endcomment -%}
+{%- assign sparts = include.start | split: "-" -%}
+{%- assign sy = sparts[0] -%}
+{%- assign sm = sparts[1] -%}
+{%- capture sd -%}{{ sy }}-{{ sm }}-01{%- endcapture -%}
+{%- assign start_label = sd | date: "%b %Y" -%}
+{%- if include.end and include.end != "" -%}
+    {%- assign eparts = include.end | split: "-" -%}
+    {%- assign ey = eparts[0] -%}
+    {%- assign em = eparts[1] -%}
+    {%- capture ed -%}{{ ey }}-{{ em }}-01{%- endcapture -%}
+    {%- assign end_label = ed | date: "%b %Y" -%}
+    {%- assign smon = sy | times: 12 | plus: sm -%}
+    {%- assign emon = ey | times: 12 | plus: em -%}
+    {%- assign total = emon | minus: smon | plus: 1 -%}
+    {%- assign years = total | divided_by: 12 -%}
+    {%- assign months = total | modulo: 12 -%}
+    {%- capture ys -%}{%- if years > 0 -%}{{ years }}yr{%- unless years == 1 -%}s{%- endunless -%}{%- endif -%}{%- endcapture -%}
+    {%- capture ms -%}{%- if months > 0 -%}{{ months }}mo{%- unless months == 1 -%}s{%- endunless -%}{%- endif -%}{%- endcapture -%}
+    {%- if ys != "" and ms != "" -%}{%- assign dur = ys | append: " " | append: ms -%}{%- else -%}{%- assign dur = ys | append: ms -%}{%- endif -%}
+    {{- start_label }} – {{ end_label }} ({{ dur }})
+{%- else -%}
+    {{- start_label }} – Now
+{%- endif -%}

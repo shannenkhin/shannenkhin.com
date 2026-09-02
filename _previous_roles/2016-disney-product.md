@@ -2,12 +2,13 @@
 title: "Product Manager, DTCI"
 name: "The Walt Disney Company"
 location: "London, UK"
-date_range: "Aug 2016 - Apr 2019 (2yrs 9mos)"
+start: "2016-08"
+end: "2019-04"
 logo: "/assets/images/cv/logos/logo-disney.svg"
 logo_is_wide: true
 ---
 Worked in an agile development team as a product owner, managed the product roadmap for DisneyLife across web, mobile and connected TV platforms. Designed and executed migration to Disney+.
-* Designed workflows and visual representations to streamline complex business requirements to clear product specifications and align stakeholders expectations with the engineering team.
+* Designed workflows and visual representations to streamline complex business requirements to clear product specifications and align stakeholders' expectations with the engineering team.
 * Managed external vendors on fast delivery Tier 3 platforms (connected TV) with clear product roadmap.
 * Led teams across three time zones on product expansion in Ireland and the Philippines.
 * Improved analytics tracking to increase accuracy in reporting by 50% across all platforms.

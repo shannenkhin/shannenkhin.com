@@ -1,0 +1,72 @@
+@import 'vars';
+
+// Print defaults, replacing Bootstrap's _print.scss.
+//
+// These matter more here than on most sites: a CV is printed for real, and
+// bin/generate-cv-pdf.mjs prints this page to assets/docs/shannen-khin-cv.pdf,
+// so a change in this file changes the PDF people download. Before it existed,
+// printing the page gave Chrome's defaults — the avatar's ring dropped out with
+// the backgrounds, and a role could be split across a page break in the middle
+// of its bullets.
+
+@media print {
+    // Shadows cost ink and render as grey mud on paper.
+    *,
+    *::before,
+    *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    // Lay the page out at desktop width rather than paper width, so the printed
+    // CV matches the two-column logo-and-metadata rows people see on screen.
+    // Without this the print layout collapses to the narrow-viewport rules and
+    // the PDF stops matching the site.
+    body,
+    .container {
+        min-width: 60rem !important;
+    }
+
+    // The container's screen breathing room is the paper's margin's job.
+    .container {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    // The nav is a LinkedIn link and a download link for the very file being
+    // printed. Neither is any use on paper.
+    .header-data nav {
+        display: none;
+    }
+
+    // The avatar's ring is a background colour, which browsers drop from print
+    // by default; without this the photo prints as a bare square.
+    .header-avatar-border {
+        print-color-adjust: exact;
+    }
+
+    // Never break the header, or a single role, across two pages.
+    .container header,
+    .cv-experience {
+        break-inside: avoid;
+    }
+
+    // No single line of a paragraph stranded at a page boundary, and no section
+    // heading printed as the last thing on a page.
+    p,
+    li {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        break-after: avoid;
+    }
+
+    // Underlines are the screen's way of marking a link; on paper they are just
+    // noise under text nobody can click.
+    a {
+        text-decoration: none !important;
+    }
+}
