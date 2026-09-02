@@ -1,0 +1,44 @@
+{
+  "_comment": [
+    "The site's palette, in one place. Read by assets/css/global.scss (which has",
+    "front matter, so Jekyll runs it through Liquid before Sass sees it),",
+    "_layouts/global.html, site.webmanifest, browserconfig.xml, and both Node",
+    "generators in bin/. Nothing else should hold a colour.",
+    "",
+    "It lives in _data rather than _config.yml for three reasons: Jekyll loads",
+    "_data/*.json natively on the legacy GitHub Pages build with no plugin; Node",
+    "reads it with JSON.parse rather than the hand-rolled regex the generators",
+    "use for _config.yml, which only sees top-level scalars; and `jekyll serve`",
+    "watches data files, where a _config.yml edit needs a server restart.",
+    "",
+    "Keys are underscored, not hyphenated: the site builds with Liquid's strict",
+    "error mode, and `colours.light.fg-strong` risks the hyphen being read as an",
+    "operator. The CSS custom property is still --c-fg-strong.",
+    "",
+    "The pill is stored as a complete rgba() string rather than derived from the",
+    "background. Sass does not evaluate SassScript inside a custom property",
+    "value, so building it with a colour function there would emit invalid CSS",
+    "and fail silently. Keep it in step with `bg` by hand.",
+    "",
+    "Contrast ratios against each theme's own ground are recorded beside the",
+    "tokens in assets/css/global.scss, where a reader of the theme will look."
+  ],
+  "light": {
+    "bg": "#ffffff",
+    "accent": "#1b3a6b",
+    "fg": "#4f4f4f",
+    "fg_strong": "#2f2f2f",
+    "muted": "#6f6f6f",
+    "hairline": "#d8dce2",
+    "pill": "rgba(255, 255, 255, 0.85)"
+  },
+  "dark": {
+    "bg": "#12151a",
+    "accent": "#8fb5e8",
+    "fg": "#c8cbd0",
+    "fg_strong": "#e9ebee",
+    "muted": "#949aa3",
+    "hairline": "#2f3540",
+    "pill": "rgba(18, 21, 26, 0.85)"
+  }
+}

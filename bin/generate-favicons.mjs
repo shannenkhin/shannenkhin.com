@@ -50,9 +50,10 @@ const SQUARE_ICONS = [
 // the tile's height and padded out to its width rather than stretched.
 const WIDE_TILE = { name: 'mstile-310x150.png', width: 310, height: 150 };
 
-// White, matching the TileColor in browserconfig.xml and the theme-color for
-// the light scheme. A tile padded in some other colour would show two grounds.
-const PAD_COLOUR = 'FFFFFF';
+// The pad behind the wide Windows tile: the palette's light background, so the
+// tile cannot end up showing two different grounds. `sips --padColor` wants
+// bare hex, without the leading '#'.
+const PAD_COLOUR = JSON.parse(await readFile('_data/colours.json', 'utf8')).light.bg.replace('#', '');
 
 // The sizes that go inside favicon.ico. 48 is included because Windows uses it
 // for desktop shortcuts and the taskbar; browsers take the 16 or the 32.

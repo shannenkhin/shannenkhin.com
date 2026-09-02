@@ -62,6 +62,14 @@ function configValue(yaml, key) {
 
 const config = await readFile('_config.yml', 'utf8');
 
+// The palette, from the same file the stylesheet, the layout, the webmanifest
+// and browserconfig.xml read. The card is drawn by a scraper that has no CSS
+// custom properties, so the values have to be baked into the markup below —
+// but they are baked from the one source rather than transcribed, which is
+// what let the card drift out of step with the site before.
+// The card is always the light theme; a scraper has no colour scheme.
+const colours = JSON.parse(await readFile('_data/colours.json', 'utf8')).light;
+
 // Jekyll serves site_og_image at the site root; strip the leading slash to get
 // the repository path to write.
 const OUT = configValue(config, 'site_og_image').replace(/^\//, '');
@@ -102,9 +110,8 @@ async function startServer() {
  * The card itself. Absolute localhost URLs throughout because this is loaded via
  * setContent, which has no document base to resolve relative paths against.
  *
- * Colours and faces are the site's light theme, hard-coded rather than read from
- * the stylesheet — so they must be changed here whenever the light tokens in
- * assets/css/global.scss change, and this rerun. The reason they cannot be read: an OG card is rendered by a scraper that has no colour scheme
+ * Colours come from _data/colours.json, the same palette the stylesheet reads.
+ * They are interpolated into the markup rather than referenced, because: an OG card is rendered by a scraper that has no colour scheme
  * and no CSS custom properties, so there is nothing here for a token to vary.
  * The name is set in Georgia and lowercased, the way the site's header sets it.
  *
@@ -131,8 +138,8 @@ function cardHtml() {
 
     body {
         align-items: center;
-        background: #fff;
-        color: #4f4f4f;
+        background: ${colours.bg};
+        color: ${colours.fg};
         display: flex;
         font-family: 'WebSans', sans-serif;
         gap: 64px;
@@ -144,7 +151,7 @@ function cardHtml() {
     /* The navy ring the site's header avatar wears, scaled up for a card this
        size. */
     .avatar {
-        border: 12px solid #1b3a6b;
+        border: 12px solid ${colours.accent};
         border-radius: 50%;
         flex: none;
         height: 300px;
@@ -153,7 +160,7 @@ function cardHtml() {
     }
 
     .name {
-        color: #1b3a6b;
+        color: ${colours.accent};
         font-family: Georgia, 'Times New Roman', Times, serif;
         font-size: 86px;
         line-height: 1.05;
@@ -161,17 +168,17 @@ function cardHtml() {
     }
 
     /* The surname in the header's lighter grey, as on the site. */
-    .name .alternate { color: #6f6f6f; }
+    .name .alternate { color: ${colours.muted}; }
 
-    .title { color: #2f2f2f; font-size: 40px; font-weight: bold; margin-bottom: 12px; }
+    .title { color: ${colours.fg_strong}; font-size: 40px; font-weight: bold; margin-bottom: 12px; }
 
-    .location { color: #4f4f4f; font-size: 32px; margin-bottom: 40px; }
+    .location { color: ${colours.fg}; font-size: 32px; margin-bottom: 40px; }
 
     /* A rule rather than a box, so the domain reads as a footer to the block
        above it instead of a second, competing element. */
     .domain {
-        border-top: 3px solid #d8dce2;
-        color: #1b3a6b;
+        border-top: 3px solid ${colours.hairline};
+        color: ${colours.accent};
         font-size: 30px;
         font-weight: bold;
         padding-top: 26px;

@@ -9,48 +9,54 @@
 // Themeable colour tokens. Every $colour-* the site uses resolves to one of
 // these (see _sass/vars.scss), so the theme is defined entirely by which of
 // these two mixins :root gets.
+//
+// The values come from _data/colours.json, the site's one palette. This file
+// carries front matter, so Jekyll runs it through Liquid before the Sass
+// converter sees it — by then each of these is a plain hex or rgba literal,
+// which is what keeps the old Ruby Sass on GitHub Pages happy. The contrast
+// ratios stay here, beside the token they describe.
 @mixin theme-light {
     color-scheme: light;
 
-    --c-bg: #fff;
+    --c-bg: {{ site.data.colours.light.bg }};
     // A true navy. The previous #25285b was a blue-violet inherited from the
-    // template this site was built from. The accent is also written into
-    // bin/generate-og-image.mjs (the share card cannot read a custom property)
-    // and the mask-icon colour in _layouts/global.html — change it in all three.
-    --c-accent: #1b3a6b;      // 11.27:1 on the page ground
-    --c-fg: #4f4f4f;          //  8.19:1
-    --c-fg-strong: #2f2f2f;   // 13.39:1
+    // template this site was built from.
+    --c-accent: {{ site.data.colours.light.accent }};      // 11.27:1 on the page ground
+    --c-fg: {{ site.data.colours.light.fg }};          //  8.19:1
+    --c-fg-strong: {{ site.data.colours.light.fg_strong }};   // 13.39:1
     // Was #7f7f7f at 4.00:1, which is fine for the 50px surname but not for the
     // other thing this token sets: the 0.6rem page number in the printed PDF
     // (see the @page block in cv.scss). That was a real AA failure.
-    --c-muted: #6f6f6f;       //  5.02:1
-    --c-hairline: #d8dce2;    //  decorative, no floor
-    // Company logos are left as their brand selves on light.
+    --c-muted: {{ site.data.colours.light.muted }};       //  5.02:1
+    --c-hairline: {{ site.data.colours.light.hairline }};    //  decorative, no floor
+    // Company logos are left as their brand selves on light. Filters are
+    // rendering instructions rather than palette, so they stay here.
     --c-logo-filter: none;
     --c-logo-invert-filter: none;
     // Translucent pill behind the theme toggle, where it floats over the page.
-    --c-pill: rgba(255, 255, 255, 0.85);
+    --c-pill: {{ site.data.colours.light.pill }};
 }
 
 @mixin theme-dark {
     color-scheme: dark;
 
-    --c-bg: #12151a;
+    --c-bg: {{ site.data.colours.dark.bg }};
     // A clear sky blue rather than the navy merely lightened. The brand colour
     // itself is 1.2:1 on this ground — unreadable — so the theme carries a
     // second value rather than the same one twice.
-    --c-accent: #8fb5e8;      //  8.66:1 on the page ground
-    --c-fg: #c8cbd0;          // 11.25:1
-    --c-fg-strong: #e9ebee;   // 15.32:1
-    --c-muted: #949aa3;       //  6.46:1
-    --c-hairline: #2f3540;    //  decorative, no floor
+    --c-accent: {{ site.data.colours.dark.accent }};      //  8.66:1 on the page ground
+    --c-fg: {{ site.data.colours.dark.fg }};          // 11.25:1
+    --c-fg-strong: {{ site.data.colours.dark.fg_strong }};   // 15.32:1
+    --c-muted: {{ site.data.colours.dark.muted }};       //  6.46:1
+    --c-hairline: {{ site.data.colours.dark.hairline }};    //  decorative, no floor
     // brightness(0) flattens each logo to a silhouette and invert(0.9) lifts it
     // to a soft (not harsh) white; transparent areas are untouched.
     --c-logo-filter: brightness(0) invert(0.9);
     // For monochrome line art, where a silhouette would destroy the detail.
     --c-logo-invert-filter: invert(1);
-    // The page ground again, as rgba. Keep it in step with --c-bg above.
-    --c-pill: rgba(18, 21, 26, 0.85);
+    // The page ground again, as rgba. Keep it in step with `bg` in the data
+    // file — Sass will not evaluate a colour function inside a custom property.
+    --c-pill: {{ site.data.colours.dark.pill }};
 }
 
 // Light by default. Dark applies when the OS prefers it — unless the visitor
