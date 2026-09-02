@@ -13,42 +13,44 @@
     color-scheme: light;
 
     --c-bg: #fff;
-    --c-accent: #25285b;      // 13.70:1 on the page ground
-    --c-fg: #595959;          //  7.00:1
-    --c-fg-strong: #404040;   // 10.37:1
-    --c-muted: #7f7f7f;       //  4.00:1 — large text only, see vars.scss
-    --c-hairline: #cecece;    //  decorative, no floor
+    // A true navy. The previous #25285b was a blue-violet inherited from the
+    // template this site was built from. The accent is also written into
+    // bin/generate-og-image.mjs (the share card cannot read a custom property)
+    // and the mask-icon colour in _layouts/global.html — change it in all three.
+    --c-accent: #1b3a6b;      // 11.27:1 on the page ground
+    --c-fg: #4f4f4f;          //  8.19:1
+    --c-fg-strong: #2f2f2f;   // 13.39:1
+    // Was #7f7f7f at 4.00:1, which is fine for the 50px surname but not for the
+    // other thing this token sets: the 0.6rem page number in the printed PDF
+    // (see the @page block in cv.scss). That was a real AA failure.
+    --c-muted: #6f6f6f;       //  5.02:1
+    --c-hairline: #d8dce2;    //  decorative, no floor
     // Company logos are left as their brand selves on light.
     --c-logo-filter: none;
     --c-logo-invert-filter: none;
-    // The nav icons are drawn in the accent navy, which is the colour they
-    // should be on a white ground.
-    --c-nav-icon-filter: none;
     // Translucent pill behind the theme toggle, where it floats over the page.
-    --c-pill: rgba(255, 255, 255, 0.82);
+    --c-pill: rgba(255, 255, 255, 0.85);
 }
 
 @mixin theme-dark {
     color-scheme: dark;
 
-    --c-bg: #16181d;
-    // The navy lightened to a periwinkle. The brand colour itself is 1.3:1 on
-    // this ground — unreadable — so the theme carries a second value rather
-    // than the same one twice.
-    --c-accent: #a0a6e8;      //  7.71:1 on the page ground
-    --c-fg: #c9c9c6;          // 10.70:1
-    --c-fg-strong: #e8e8e6;   // 14.47:1
-    --c-muted: #8c8c8c;       //  5.28:1
-    --c-hairline: #3a3d47;    //  decorative, no floor
+    --c-bg: #12151a;
+    // A clear sky blue rather than the navy merely lightened. The brand colour
+    // itself is 1.2:1 on this ground — unreadable — so the theme carries a
+    // second value rather than the same one twice.
+    --c-accent: #8fb5e8;      //  8.66:1 on the page ground
+    --c-fg: #c8cbd0;          // 11.25:1
+    --c-fg-strong: #e9ebee;   // 15.32:1
+    --c-muted: #949aa3;       //  6.46:1
+    --c-hairline: #2f3540;    //  decorative, no floor
     // brightness(0) flattens each logo to a silhouette and invert(0.9) lifts it
     // to a soft (not harsh) white; transparent areas are untouched.
     --c-logo-filter: brightness(0) invert(0.9);
     // For monochrome line art, where a silhouette would destroy the detail.
     --c-logo-invert-filter: invert(1);
-    // The download and LinkedIn icons are solid #25285b, which is all but
-    // invisible against this ground — 1.3:1. Same silhouette treatment.
-    --c-nav-icon-filter: brightness(0) invert(0.9);
-    --c-pill: rgba(22, 24, 29, 0.85);
+    // The page ground again, as rgba. Keep it in step with --c-bg above.
+    --c-pill: rgba(18, 21, 26, 0.85);
 }
 
 // Light by default. Dark applies when the OS prefers it — unless the visitor
@@ -198,14 +200,16 @@ body h2 {
 // background on a wrapper that the image was then nudged 2px into, which is
 // what it used to be — and which vanished in print, where browsers drop
 // background colours.
-// This one accent stays a fixed value rather than a theme token: it sits
-// against the photograph, not the page ground, so it reads the same in both
-// themes.
+// It used to be a fixed navy, on the reasoning that it sat against the avatar
+// illustration's own olive disc rather than the page ground. That stopped being
+// true when the avatar became a photograph: the ring now separates a picture
+// with a bright background from the page behind it, and a dark navy ring on the
+// dark theme sank into the ground. It follows the accent in both themes now.
 // `object-fit` and the explicit height are what keep the circle a circle: the
 // photo happens to be square today, but a replacement that isn't would
 // otherwise render as an ellipse.
 .header-avatar-border img {
-    border: 0.28rem solid #25285b;
+    border: 0.28rem solid $colour-accent;
     border-radius: 50%;
     display: block;
     height: 7rem;
@@ -263,19 +267,33 @@ body h2 {
     }
 }
 
+// The label takes the muted grey and the icon takes the accent, not the other
+// way round and not both the same. The LinkedIn glyph is a filled square
+// containing the letters "in"; in the same colour as the label, 4px away, it
+// scanned as the first word of it — "in Contact me". Separating the two colours
+// and widening the gap stops the icon reading as a letterform.
+// christianbrown.uk sets its nav links the same way: body-weight colour at
+// rest, accent on hover.
 .header-data nav a {
-    color: $colour-accent;
+    color: $colour-muted;
     font-weight: bold;
 }
 
 .header-data nav a:hover {
-    color: $colour-fg;
+    color: $colour-accent;
 }
 
+// Inlined rather than loaded through <img> (see _includes/icon-*.svg), because
+// an SVG in an <img> is an isolated document that cannot see this stylesheet.
+// As inline markup it takes a real token, so it follows the theme instead of
+// being crudely silhouetted by a filter — which is what --c-nav-icon-filter
+// used to do, and why it is gone.
 .header-data nav a .header-data-links-icon {
-    filter: var(--c-nav-icon-filter);
+    fill: $colour-accent;
     height: 1.25rem;
+    margin-right: 0.25rem;
     vertical-align: middle;
+    width: 1.25rem;
 }
 
 // Three spaces of separation between nav links, as a gap rather than the

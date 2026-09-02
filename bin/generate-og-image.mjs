@@ -103,7 +103,8 @@ async function startServer() {
  * setContent, which has no document base to resolve relative paths against.
  *
  * Colours and faces are the site's light theme, hard-coded rather than read from
- * the stylesheet: an OG card is rendered by a scraper that has no colour scheme
+ * the stylesheet — so they must be changed here whenever the light tokens in
+ * assets/css/global.scss change, and this rerun. The reason they cannot be read: an OG card is rendered by a scraper that has no colour scheme
  * and no CSS custom properties, so there is nothing here for a token to vary.
  * The name is set in Georgia and lowercased, the way the site's header sets it.
  *
@@ -131,7 +132,7 @@ function cardHtml() {
     body {
         align-items: center;
         background: #fff;
-        color: #595959;
+        color: #4f4f4f;
         display: flex;
         font-family: 'WebSans', sans-serif;
         gap: 64px;
@@ -143,7 +144,7 @@ function cardHtml() {
     /* The navy ring the site's header avatar wears, scaled up for a card this
        size. */
     .avatar {
-        border: 12px solid #25285b;
+        border: 12px solid #1b3a6b;
         border-radius: 50%;
         flex: none;
         height: 300px;
@@ -152,7 +153,7 @@ function cardHtml() {
     }
 
     .name {
-        color: #25285b;
+        color: #1b3a6b;
         font-family: Georgia, 'Times New Roman', Times, serif;
         font-size: 86px;
         line-height: 1.05;
@@ -160,17 +161,17 @@ function cardHtml() {
     }
 
     /* The surname in the header's lighter grey, as on the site. */
-    .name .alternate { color: #7f7f7f; }
+    .name .alternate { color: #6f6f6f; }
 
-    .title { color: #404040; font-size: 40px; font-weight: bold; margin-bottom: 12px; }
+    .title { color: #2f2f2f; font-size: 40px; font-weight: bold; margin-bottom: 12px; }
 
-    .location { color: #595959; font-size: 32px; margin-bottom: 40px; }
+    .location { color: #4f4f4f; font-size: 32px; margin-bottom: 40px; }
 
     /* A rule rather than a box, so the domain reads as a footer to the block
        above it instead of a second, competing element. */
     .domain {
-        border-top: 3px solid #cecece;
-        color: #25285b;
+        border-top: 3px solid #d8dce2;
+        color: #1b3a6b;
         font-size: 30px;
         font-weight: bold;
         padding-top: 26px;

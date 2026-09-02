@@ -18,7 +18,10 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
         <link rel="manifest" href="/site.webmanifest">
-        <link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <!-- Safari fills the pinned-tab mask with this flat colour. It was #5bbad5,
+             a leftover default from the favicon generator that matched nothing on the
+             site; it is the light accent now. -->
+        <link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#1b3a6b">
         <!-- The two faces used above the fold: the body text and the bold nav
              beside it. They are referenced from inside global.css, so without
              these the browser cannot even ask for them until the stylesheet has
@@ -46,7 +49,7 @@
         <!-- One per scheme, so the browser chrome matches the page rather than
              staying white behind a dark one. -->
         <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-        <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)">
+        <meta name="theme-color" content="#12151a" media="(prefers-color-scheme: dark)">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:description" content="{{ page.description }}">
         <meta name="twitter:image" content="{{ site.url }}{{ site.site_og_image }}">
@@ -96,7 +99,14 @@
                         <!-- The icon is decorative: the link's own text says the
                              same thing right beside it, so an alt here would
                              have a screen reader announce each link twice. -->
-                        <a href="{{ nav.link }}"{% assign firstchar = nav.link | slice: 0 %}{% if firstchar != '/' %} target="_blank" rel="noopener noreferrer"{% endif %}><img src="/assets/images/icons/icon-{{ nav.icon }}.svg" alt="" class="header-data-links-icon"> {{ nav.text }}</a>
+                        {%- comment -%}
+                        The icon is inlined from _includes so its fill can come
+                        from a theme token; an SVG behind an <img> cannot read
+                        the page's CSS. Named explicitly rather than built from
+                        nav.icon, because a variable include filename is fragile
+                        under the strict Liquid error mode this site builds with.
+                        {%- endcomment -%}
+                        <a href="{{ nav.link }}"{% assign firstchar = nav.link | slice: 0 %}{% if firstchar != '/' %} target="_blank" rel="noopener noreferrer"{% endif %}>{% if nav.icon == 'download' %}{% include icon-download.svg %}{% elsif nav.icon == 'linkedin' %}{% include icon-linkedin.svg %}{% endif %}{{ nav.text }}</a>
                         {%- endfor %}
                     </nav>
                     {%- endif %}

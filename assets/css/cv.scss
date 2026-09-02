@@ -165,16 +165,7 @@
         max-width: 5.2rem;
     }
 
-    // A logo drawn as a filled brand shape rather than a mark on a transparent
-// ground cannot be silhouetted: LEGO is a red square, so brightness(0) turns
-// the whole square into one white block and the wordmark inside it disappears.
-// Those logos already read on the dark ground as they are, so they opt out via
-// `logo_keeps_colour: true` in the collection file.
-.cv-experience-logo img.logo-keeps-colour {
-    filter: none;
-}
-
-.cv-experience-logo img.logo-wide {
+    .cv-experience-logo img.logo-wide {
         max-height: 4.65rem;
         max-width: 6.25rem;
     }
