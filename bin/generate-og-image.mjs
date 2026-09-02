@@ -152,7 +152,6 @@ function cardHtml() {
         font-size: 86px;
         line-height: 1.05;
         margin-bottom: 26px;
-        text-transform: lowercase;
     }
 
     /* The surname in the header's lighter grey, as on the site. */
