@@ -7,7 +7,7 @@
             had a screen reader announce the same employer twice for every one
             of the seven rows on the page.
             {%- endcomment -%}
-            <img src="{{ experience.logo }}" alt=""{% if experience.logo_is_wide %} class="logo-wide"{% endif %}>
+            <img src="{{ experience.logo }}" alt=""{% if experience.logo_is_wide or experience.logo_keeps_colour %} class="{% if experience.logo_is_wide %}logo-wide{% endif %}{% if experience.logo_keeps_colour %}{% if experience.logo_is_wide %} {% endif %}logo-keeps-colour{% endif %}"{% endif %}>
         </div>
         <div class="cv-experience-metadata">
             <h3>{{ experience.title }}</h3>
