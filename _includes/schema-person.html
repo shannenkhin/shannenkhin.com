@@ -21,7 +21,7 @@ ampersand in it cannot break the JSON.
     "jobTitle": {{ site.header_job_title | jsonify }},
     "description": {{ page.description | jsonify }},
     "url": {{ site.url | append: "/" | jsonify }},
-    "image": {{ site.url | append: "/assets/images/avatar.svg" | jsonify }},
+    "image": {{ site.url | append: "/assets/images/avatar.jpg" | jsonify }},
     "sameAs": [{{ site.linkedin_url | jsonify }}],
     {%- if employer %}
     "worksFor": {

@@ -39,9 +39,9 @@
         display: none;
     }
 
-    // The avatar's ring is a background colour, which browsers drop from print
-    // by default; without this the photo prints as a bare square.
-    .header-avatar-border {
+    // Browsers lighten or drop colour from print by default. The ring is a
+    // border and the avatar is a photograph, so both want printing as they are.
+    .header-avatar-border img {
         print-color-adjust: exact;
     }
 

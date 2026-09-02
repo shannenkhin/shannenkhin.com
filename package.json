@@ -5,9 +5,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "serve:local": "bundle exec jekyll serve",
     "cv:pdf": "node bin/generate-cv-pdf.mjs",
-    "og:image": "node bin/generate-og-image.mjs"
+    "favicons": "node bin/generate-favicons.mjs",
+    "og:image": "node bin/generate-og-image.mjs",
+    "serve:local": "bundle exec jekyll serve"
   },
   "devDependencies": {
     "http-server": "^14.1.1",

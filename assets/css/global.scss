@@ -199,12 +199,17 @@ body h2 {
 // what it used to be — and which vanished in print, where browsers drop
 // background colours.
 // This one accent stays a fixed value rather than a theme token: it sits
-// against the avatar's own olive disc, not the page ground, so it reads the
-// same in both themes.
+// against the photograph, not the page ground, so it reads the same in both
+// themes.
+// `object-fit` and the explicit height are what keep the circle a circle: the
+// photo happens to be square today, but a replacement that isn't would
+// otherwise render as an ellipse.
 .header-avatar-border img {
     border: 0.28rem solid #25285b;
     border-radius: 50%;
     display: block;
+    height: 7rem;
+    object-fit: cover;
     width: 7rem;
 }
 

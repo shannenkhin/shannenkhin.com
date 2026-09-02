@@ -9,8 +9,13 @@
  * twitter:image:alt beside it described it as a photo of Shannen, which it was
  * not. This draws a real card at the 1.91:1 aspect ratio the scrapers want.
  *
- * Run `bundle exec jekyll build` first; the card pulls the avatar and the
- * webfont from `_site`, so it renders in the same faces the site does.
+ * Run `bundle exec jekyll build` first; the card pulls the avatar photo and
+ * the webfont from `_site`, so it renders in the same faces the site does.
+ *
+ * The avatar is a 160x160 source drawn here at 300x300, so it is upscaled and
+ * a little soft. That is the largest LinkedIn's CDN will serve for this
+ * profile; replace assets/images/avatar.jpg with a bigger original and rerun
+ * this and `npm run favicons` to sharpen every surface at once.
  *
  *   npm run og:image
  *
@@ -173,7 +178,7 @@ function cardHtml() {
 </style>
 </head>
 <body>
-    <img class="avatar" src="${BASE}/assets/images/avatar.svg" alt="">
+    <img class="avatar" src="${BASE}/assets/images/avatar.jpg" alt="">
     <div>
         <div class="name">${FIRST_NAME} <span class="alternate">${LAST_NAME}</span></div>
         <div class="title">${JOB_TITLE}</div>
