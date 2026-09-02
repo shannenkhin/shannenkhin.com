@@ -80,8 +80,12 @@ strong {
     font-weight: bolder;
 }
 
+// `text-decoration: none` is load-bearing, not a preference: dropping Bootstrap
+// removed its reboot rule, and without a replacement the UA default underlines
+// every link on the page. christianbrown.uk carries the same line.
 a {
     background-color: transparent;
+    text-decoration: none;
 }
 
 // `middle` stops the descender gap under every inline logo and icon in the CV.

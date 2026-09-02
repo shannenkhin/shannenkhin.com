@@ -28,6 +28,10 @@
              The serif is not preloaded: it is Georgia, already on the machine. -->
         <link rel="preload" href="/assets/fonts/poppins.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="/assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
+        <!-- Apply the saved colour theme before the stylesheets paint, to avoid
+             a flash of the wrong theme. Classic (not module) and render-blocking
+             on purpose so it runs ahead of the CSS below. -->
+        <script src="/assets/js/theme-init.js"></script>
         <link rel="stylesheet" href="/assets/css/global.css">
         {%- for stylesheet in layout.stylesheets %}
         <link rel="stylesheet" href="{{ stylesheet }}">
@@ -35,6 +39,7 @@
         {%- for stylesheet in page.stylesheets %}
         <link rel="stylesheet" href="{{ stylesheet }}">
         {%- endfor %}
+        <script type="module" src="/assets/js/global.js"></script>
         <meta name="author" content="{{ site.site_author }}">
         <meta name="description" content="{{ page.description }}">
         <meta name="msapplication-TileColor" content="#ffffff">
@@ -65,6 +70,10 @@
         {%- endif %}
     </head>
     <body>
+        <!-- Colour-theme toggle (Auto → Light → Dark), fixed in the top-right
+             corner of the viewport. Ships hidden; global.js reveals and wires
+             it, so it never appears as a dead control without JavaScript. -->
+        <button type="button" id="theme-toggle" class="theme-toggle" title="Switch colour theme" aria-label="Colour theme" hidden></button>
         <div class="container">
             <header>
                 <div class="header-avatar">
@@ -96,11 +105,6 @@
             <main>
                 {{ content }}
             </main>
-            {%- if page.show_updated %}
-            <footer>
-                <p class="site-updated">Last updated {{ site.time | date: "%-d %B %Y" }}</p>
-            </footer>
-            {%- endif %}
         </div>
     </body>
 </html>

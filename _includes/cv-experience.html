@@ -7,7 +7,15 @@
             had a screen reader announce the same employer twice for every one
             of the seven rows on the page.
             {%- endcomment -%}
-            <img src="{{ experience.logo }}" alt=""{% if experience.logo_is_wide or experience.logo_keeps_colour %} class="{% if experience.logo_is_wide %}logo-wide{% endif %}{% if experience.logo_keeps_colour %}{% if experience.logo_is_wide %} {% endif %}logo-keeps-colour{% endif %}"{% endif %}>
+            {%- comment -%}
+            `logo_dark` picks how the dark theme treats this logo: absent is the
+            default silhouette, `keep` leaves it alone, `invert` flips it. See
+            the notes on each class in cv.scss for when to reach for which.
+            {%- endcomment -%}
+            {%- assign logo_classes = "" -%}
+            {%- if experience.logo_is_wide %}{% assign logo_classes = logo_classes | append: " logo-wide" %}{% endif -%}
+            {%- if experience.logo_dark %}{% assign logo_classes = logo_classes | append: " logo-dark-" | append: experience.logo_dark %}{% endif -%}
+            <img src="{{ experience.logo }}" alt=""{% if logo_classes != "" %} class="{{ logo_classes | strip }}"{% endif %}>
         </div>
         <div class="cv-experience-metadata">
             <h3>{{ experience.title }}</h3>

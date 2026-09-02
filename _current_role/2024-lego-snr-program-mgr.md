@@ -8,5 +8,5 @@ logo: "/assets/images/cv/logos/logo-lego.svg"
 logo_is_wide: false
 # The LEGO mark is a filled red square, so the dark theme's silhouette filter
 # would render it as a plain white block. It reads as it is on both grounds.
-logo_keeps_colour: true
+logo_dark: "keep"
 ---

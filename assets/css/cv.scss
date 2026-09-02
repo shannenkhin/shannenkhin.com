@@ -97,13 +97,29 @@
     filter: var(--c-logo-filter);
 }
 
-// A logo drawn as a filled brand shape rather than a mark on a transparent
-// ground cannot be silhouetted: LEGO is a red square, so brightness(0) turns
-// the whole square into one white block and the wordmark inside it disappears.
-// Those logos already read on the dark ground as they are, so they opt out via
-// `logo_keeps_colour: true` in the collection file.
-.cv-experience-logo img.logo-keeps-colour {
+// Two logos need something other than the default silhouette on dark. Each
+// picks its treatment with `logo_dark:` in its collection file.
+//
+// `keep` — a filled brand shape rather than a mark on a transparent ground.
+// LEGO is a red square, so brightness(0) turns the whole square into one white
+// block and the wordmark inside it disappears. It reads as it is on both.
+.cv-experience-logo img.logo-dark-keep {
     filter: none;
+}
+
+// `invert` — black-and-white line art whose detail is carried by white shapes
+// knocked out of black ones. The UoL crest is 201 black fills and 110 white
+// ones, and brightness(0) flattens both to black before inverting, so the whole
+// crest came out as one blank shield. A straight inversion swaps the two
+// exactly: the black becomes white and the white becomes near-black against the
+// page ground, so every detail survives.
+//
+// This is where the UWA crest on christianbrown.uk needed a hand-drawn
+// greyscale file instead — that one carries a real colour gradient, which an
+// inversion would turn the wrong colour. UoL is monochrome, so no second asset
+// is needed.
+.cv-experience-logo img.logo-dark-invert {
+    filter: var(--c-logo-invert-filter);
 }
 
 .cv-experience-logo img.logo-wide {
