@@ -129,6 +129,16 @@ body h2 {
     color: $colour-fg;
 }
 
+// A focus ring of the site's own rather than the browser's 1px `auto` default,
+// which is drawn in the UA's colour and is easy to lose against either theme's
+// ground. `:focus-visible` rather than `:focus`, so it appears for a keyboard
+// tab and not after a mouse click. The offset keeps it clear of the underline
+// on the nav links.
+:focus-visible {
+    outline: 2px solid $colour-accent;
+    outline-offset: 3px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -231,4 +241,14 @@ body h2 {
 // `&nbsp;&nbsp;&nbsp;` the template used to emit between them.
 .header-data nav a + a {
     margin-left: 1.2rem;
+}
+
+// The build date, so a reader can see the CV is current. Jekyll stamps this at
+// build time and GitHub Pages rebuilds on push, so it moves when the content
+// does — not on a schedule, which would make it a lie.
+.site-updated {
+    color: $colour-muted;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+    text-align: right;
 }

@@ -96,6 +96,11 @@
             <main>
                 {{ content }}
             </main>
+            {%- if page.show_updated %}
+            <footer>
+                <p class="site-updated">Last updated {{ site.time | date: "%-d %B %Y" }}</p>
+            </footer>
+            {%- endif %}
         </div>
     </body>
 </html>
